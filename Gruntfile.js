@@ -25,9 +25,26 @@ module.exports = function (grunt) {
         dist: 'dist'
     };
 
-    grunt.initConfig({
+	grunt.initConfig({
+		express: {
+			options: {
+				// Override defaults here
+			},
+			dev: {
+				options: {
+					script: 'app.js'
+				}
+			}
+		},
         yeoman: yeomanConfig,
-        watch: {
+		watch: {
+			express: {
+				files: ['routes/{,*/}*.js', 'app-client/{,*/}*.js','app.js' ],
+				tasks: [ 'express:dev'],
+				options: {
+					nospawn: true
+				}
+			},
             options: {
                 nospawn: true,
                 livereload: true
@@ -282,7 +299,8 @@ module.exports = function (grunt) {
             'coffee:dist',
             'createDefaultTemplate',
             'jst',
-            'connect:livereload',
+			'connect:livereload',
+			'express:dev',
             'open',
             'watch'
         ]);
