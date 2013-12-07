@@ -13,3 +13,13 @@ gain
 - セットリストを登録
 - セットリストの中から共感できる曲に「いいね」
 - 「いいね」が多い順番でセットリストを表示
+
+## Architecture
+
+- node
+- heroku
+- GoogleOAuth2
+- express
+- express-resource
+- mongoDB
+- mongoose
