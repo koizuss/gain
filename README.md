@@ -19,6 +19,7 @@ gain
 - node
 - heroku
 - GoogleOAuth2
+- passportjs
 - express
 - express-resource
 - mongoDB
