@@ -4,8 +4,8 @@
  */
 
 var express = require('express');
+var resource = require('express-resource');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
@@ -62,8 +62,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+app.resource('account', require('./routes/account'));
 
 app.get('/auth/google', passport.authenticate('google'));
 

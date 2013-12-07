@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>gain</title>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+	<p>gain</p>
+	<p id="account" style="display: none">Hello <span class="name"></span></p>
+	<script>
+		$(function() {
+			console.log('gain start');
+			$.getJSON('/account')
+				.done(function(user) {
+					console.log('user', user);
+					$('#account').find('.name').text(user.name.givenName).end().show();
+				})
+				.fail(function(jqXHR, textStatus, errorThrown) {
+					location.href = '/auth/google';
+				});
+		});
+	</script>
+</body>
+</html>
