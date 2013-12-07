@@ -5,5 +5,9 @@ module.exports = {
 			return;
 		}
 		res.send(401, 'Unauthorized');
+	},
+
+	getAccountName: function(req) {
+		return req.session.passport.user.emails[0].value.replace(/@.*/, '');
 	}
 }

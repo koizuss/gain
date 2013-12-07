@@ -7,18 +7,53 @@
 </head>
 <body>
 	<p>gain</p>
-	<p id="account" style="display: none">Hello <span class="name"></span></p>
+	<div id="contents" style="display: none">
+		<p>Hello <span id="account-name"></span></p>
+		<dl id="setlist">
+			<button id="create-setlist">Create setlist</button>
+		</dl>
+		<div id="currnt-setlist" style="display: none">
+			<div id="setlist-name">
+				<label for="setlist-name"></label>
+				<div class="change" style="display: none">
+					<input class="new-name" type="text" size="20">
+					<button id="change-done">done</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 		$(function() {
 			console.log('gain start');
 			$.getJSON('/account')
 				.done(function(user) {
 					console.log('user', user);
-					$('#account').find('.name').text(user.name.givenName).end().show();
+					$('#account-name').text(user.name.givenName);
+					$('#contents').show();
+					$('#setlist').show();
+
+					$.getJSON('/setlist')
+						.done(function(setlists) {
+							for(var i = 0; i < setlists.length; i++) {
+								$('#setlist').append($('<dd></dd>').text(setlists[0].name));
+							}
+						});
 				})
 				.fail(function(jqXHR, textStatus, errorThrown) {
 					location.href = '/auth/google';
 				});
+
+			$('#create-setlist').click(function() {
+				$.post('/setlist', {name: $('#new-setlist-name').val()})
+					.done(function(res) {
+						console.log('create setlist res', res);
+						$('#setlist-name label').text('click for change setlist name!!');
+					});
+			});
+			$('#setlist-name label').click(function() {
+				$(this).hide();
+				$('#setlist-name .change').show();
+			});
 		});
 	</script>
 </body>

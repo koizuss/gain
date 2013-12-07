@@ -50,9 +50,6 @@ passport.use(new GoogleStrategy({
 	console.log('profile:', profile);
 	console.log('done:', done);
 
-    // User.findOrCreate({ openId: identifier }, function(err, user) {
-    //   done(err, user);
-	// });
 	done(null, profile);
   }
 ));
@@ -63,6 +60,7 @@ if ('development' == app.get('env')) {
 }
 
 app.resource('account', require('./routes/account'));
+app.resource('setlist', require('./routes/setlist'));
 
 app.get('/auth/google', passport.authenticate('google'));
 
